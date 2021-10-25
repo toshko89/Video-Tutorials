@@ -1,0 +1,28 @@
+{
+  "name": "Video-Tutorials",
+  "version": "1.0.0",
+  "description": "Video-Tutorials Express app + hbs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toshko89/Video-Tutorials.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/toshko89/Video-Tutorials/issues"
+  },
+  "homepage": "https://github.com/toshko89/Video-Tutorials#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.3.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.12",
+    "nodemon": "^2.0.14"
+  }
+}
