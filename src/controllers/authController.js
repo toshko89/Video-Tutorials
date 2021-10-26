@@ -34,4 +34,23 @@ authController.post('/register', async (req, res) => {
 
 });
 
+authController.get('/login', (req, res) => {
+    res.render('login')
+});
+
+authController.post('/login', async (req, res) => {
+    try {
+        let { username, password } = req.body;
+        let userToken = await authService.login(username, password);
+        res.cookie('app_token', userToken, { httpOnly: true });
+        res.redirect('/');
+
+    } catch (error) {
+        console.log(error);
+        res.render('login', { error: error.message });
+    }
+});
+
+
+
 module.exports = authController;
