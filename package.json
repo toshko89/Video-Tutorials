@@ -1,9 +1,10 @@
 {
-  "name": "Video-Tutorials",
+  "name": "video-tutorials",
   "version": "1.0.0",
   "description": "Video-Tutorials Express app + hbs",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,10 +20,14 @@
   "homepage": "https://github.com/toshko89/Video-Tutorials#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
+    "cookieparser": "^0.1.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.4",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.12",
+    "mongoose": "^6.0.12"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.14"
   }
 }
