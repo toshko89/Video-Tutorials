@@ -4,6 +4,7 @@ const handlebars = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const router = require('./router.js');
+const { authentication } = require('./middleWares/auth-middleWare.js');
 
 const app = express();
 const port = 3000;
@@ -18,6 +19,7 @@ app.engine('hbs', handlebars({
 }));
 app.set('view engine', 'hbs');
 
+app.use(authentication);
 app.use(router);
 
 mongoose.connect('mongodb://localhost:27017/videos')
