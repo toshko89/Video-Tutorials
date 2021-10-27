@@ -35,6 +35,16 @@ courseController.get('/:courseId', async (req, res) => {
     }
 });
 
+courseController.get('/:courseId/enroll', authorization, async (req, res) => {
+    try {
+        await courseServices.addUser(req.params.courseId, req.user._id);
+        await courseServices.addCourse(req.user._id, req.params.courseId);
+        res.redirect(`/courses/${req.params.courseId}`);
+    } catch (error) {
+        console.log(error);
+        res.render(`/courses/${req.params.courseId}`, { error: error.message });
+    }
+});
 
 courseController.get('/:courseId/edit', isOwner, async (req, res) => {
     try {
@@ -63,8 +73,9 @@ courseController.get('/:courseId/delete', isOwner, async (req, res) => {
         res.redirect('/');
     } catch (error) {
         console.log(error);
-        res.render('index', {error: error.message});
+        res.render('index', { error: error.message });
     }
 });
+
 
 module.exports = courseController
