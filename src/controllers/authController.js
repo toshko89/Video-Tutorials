@@ -1,6 +1,7 @@
 const authController = require('express').Router();
 const User = require('../models/User.js');
 const authService = require('../services/auth-service.js');
+const config = require('../config/config.json')
 
 authController.get('/register',(req,res)=>{
     res.render('register')
@@ -24,7 +25,7 @@ authController.post('/register', async (req, res) => {
 
         const user = await authService.addUser(username, password);
         const token = authService.createToken(user);
-        res.cookie('app_token', token, { httpOnly: true });
+        res.cookie(config.TOKEN_COOKIE_NAME, token, { httpOnly: true });
         res.redirect('/');
 
     } catch (error) {
@@ -51,6 +52,9 @@ authController.post('/login', async (req, res) => {
     }
 });
 
-
+authController.get('/logout', (req, res) => {
+    res.clearCookie(config.TOKEN_COOKIE_NAME);
+    res.redirect('/');
+})
 
 module.exports = authController;

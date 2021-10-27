@@ -1,0 +1,4 @@
+{
+    "JWT_SECRET": "My secret pass",
+    "TOKEN_COOKIE_NAME":"app_token"
+}

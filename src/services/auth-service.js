@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('../models/User.js');
+const config = require('../config/config.json')
 
-const addUser = (username, password) => User.create({username, password });
+const addUser = (username, password) => User.create({ username, password });
 
 async function login(username, password) {
     const user = await User.checkUsername(username);
@@ -21,7 +22,7 @@ async function login(username, password) {
 }
 
 function createToken(user) {
-    const token = jwt.sign({ _id: user._id, username: user.username }, "My secret pass", { expiresIn: '2d' });
+    const token = jwt.sign({ _id: user._id, username: user.username }, config.JWT_SECRET, { expiresIn: '2d' });
     return token;
 };
 
@@ -36,4 +37,4 @@ const authService = {
     verifyToken
 }
 
-module.exports  = authService;
+module.exports = authService;
