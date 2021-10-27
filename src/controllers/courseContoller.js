@@ -21,4 +21,11 @@ courseController.post('/create', authorization, async (req, res) => {
         res.render('create-course', { error: error.message });
     }
 });
+
+courseController.get('/:courseId', async (req, res) => {
+    const course = await courseServices.getOne(req.params.courseId);
+    const isOwn = course.owner._id == req.user?._id;
+    res.render('course-details', { ...course, isOwn });
+});
+
 module.exports = courseController
