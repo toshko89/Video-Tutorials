@@ -57,4 +57,14 @@ courseController.post('/:courseId/edit', isOwner, async (req, res) => {
     }
 });
 
+courseController.get('/:courseId/delete', isOwner, async (req, res) => {
+    try {
+        await courseServices.deleteCourse(req.params.courseId);
+        res.redirect('/');
+    } catch (error) {
+        console.log(error);
+        res.render('index', {error: error.message});
+    }
+});
+
 module.exports = courseController

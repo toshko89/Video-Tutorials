@@ -8,11 +8,14 @@ const createCourse = async (course) => Courses.create(course);
 
 const updateCourse = async (courseId, newData) => Courses.findByIdAndUpdate(courseId, newData, { runValidators: true });
 
+const deleteCourse = async (courseId) => Courses.findByIdAndDelete(courseId);
+
 const courseServices = {
     getAll,
     getOne,
     createCourse,
     updateCourse,
+    deleteCourse,
 }
 
 module.exports = courseServices;
