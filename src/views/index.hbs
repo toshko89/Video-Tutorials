@@ -10,34 +10,20 @@
     <div class="container mt-3">
 
         <div class="card-deck d-flex justify-content-center">
-
+            {{#each course}}
             <div class="card mb-4">
-                <img class="card-img-top" src="https://colorlib.com/wp/wp-content/uploads/sites/2/angular-logo.png"
-                    alt="Card image cap" width="400">
+                <img class="card-img-top" src="{{imageUrl}}" alt="Card image cap" width="400">
                 <div class="card-body">
-                    <h4 class="card-title">Angular</h4>
+                    <h4 class="card-title">{{title}}</h4>
                 </div>
                 <div class="card-footer">
-                    <a href=""><button type="button" class="btn btn-info">Details</button></a>
+                    <a href="/courses/details"><button type="button" class="btn btn-info">Details</button></a>
                     <small class="float-right">Date...</small>
                 </div>
             </div>
-
-            <div class="card mb-4">
-                <img class="card-img-top"
-                    src="http://blog.addthiscdn.com/wp-content/uploads/2014/11/addthis-react-flux-javascript-scaling.png"
-                    alt="Card image cap" width="400">
-                <div class="card-body">
-                    <h4 class="card-title">React</h4>
-                </div>
-                <div class="card-footer">
-                    <a href=""><button type="button" class="btn btn-info">Details</button></a>
-                    <small class="float-right">Date...</small>
-                </div>
-            </div>
-
-            <!-- If there are still no courses in the database display: -->
-            <!--<h4 class="text-center">No courses...</h4>-->
+            {{else}}
+            <h4 class="text-center">No courses...</h4>
+            {{/each}}
         </div>
     </div>
 </div>

@@ -25,9 +25,9 @@ const courseSchema = new mongoose.Schema({
             }
         }
     },
-    createdAt :{
-        type: String,
-        required: true,
+    createdAt: {
+        type: Date, 
+        default: Date.now 
     },
     users: [{
         type: mongoose.Types.ObjectId,
@@ -42,6 +42,6 @@ const courseSchema = new mongoose.Schema({
         timestamps: true
     });
 
-const Courses = mongoose.model('Homes', courseSchema);
+const Courses = mongoose.model('Courses', courseSchema);
 
 module.exports = Courses;
