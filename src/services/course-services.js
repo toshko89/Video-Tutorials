@@ -6,10 +6,13 @@ const getOne = async (courseId) => Courses.findById(courseId).populate('users').
 
 const createCourse = async (course) => Courses.create(course);
 
+const updateCourse = async (courseId, newData) => Courses.findByIdAndUpdate(courseId, newData, { runValidators: true });
+
 const courseServices = {
     getAll,
     getOne,
     createCourse,
+    updateCourse,
 }
 
 module.exports = courseServices;
