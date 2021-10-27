@@ -9,9 +9,7 @@ courseController.get('/create', authorization, (req, res) => {
 courseController.post('/create', authorization, async (req, res) => {
     try {
         let { title, description, imageUrl, isPublic } = req.body;
-        if (isPublic === 'on') {
-            isPublic = true;
-        }
+        isPublic = isPublic === 'on' ? true : false;
         let newCourse = { title, description, imageUrl, isPublic, owner: req.user._id };
         await courseServices.createCourse(newCourse);
         res.redirect('/');
@@ -58,7 +56,10 @@ courseController.get('/:courseId/edit', isOwner, async (req, res) => {
 
 courseController.post('/:courseId/edit', isOwner, async (req, res) => {
     try {
-        await courseServices.updateCourse(req.params.courseId, req.body);
+        let { title, description, imageUrl, isPublic } = req.body;
+        isPublic = isPublic === 'on' ? true : false;
+        let editedCourse = { title, description, imageUrl, isPublic, owner: req.user._id };
+        await courseServices.updateCourse(req.params.courseId, editedCourse);
         console.log(req.body)
         res.redirect(`/courses/${req.params.courseId}`);
     } catch (error) {
