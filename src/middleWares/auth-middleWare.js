@@ -37,14 +37,14 @@ function authorization(req, res, next) {
 
 async function isOwner(req, res, next) {
     try {
-        const house = await courseServices.getOne(req.params.courseId);
-        if (house.owner._id == req.user?._id) {
+        const course = await courseServices.getOne(req.params.courseId);
+        if (course.owner._id == req.user?._id) {
             req.user.isOwner === true;
             return next();
         }
-        return res.render('auth/login', { error: 'You are not authorized to view this page, please login/regiter' });
+        return res.render('login', { error: 'You are not authorized to view this page, please login/regiter' });
     } catch (error) {
-        return res.render('auth/login', { error: error.message })
+        return res.render('login', { error: error.message })
     }
 }
 

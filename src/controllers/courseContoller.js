@@ -25,7 +25,6 @@ courseController.get('/:courseId', async (req, res) => {
         const course = await courseServices.getOne(req.params.courseId);
         const isOwn = course.owner._id == req.user?._id;
         const isEnrolled = course.users.some(user => user._id == req.user?._id);
-        // console.log(course);
         res.render('course-details', { ...course, isOwn, isEnrolled });
     } catch (error) {
         console.log(error);
@@ -35,9 +34,14 @@ courseController.get('/:courseId', async (req, res) => {
 
 courseController.get('/:courseId/enroll', authorization, async (req, res) => {
     try {
-        await courseServices.addUser(req.params.courseId, req.user._id);
-        await courseServices.addCourse(req.user._id, req.params.courseId);
-        res.redirect(`/courses/${req.params.courseId}`);
+        if (!req.user.isOwner) {
+            await courseServices.addUser(req.params.courseId, req.user._id);
+            await courseServices.addCourse(req.user._id, req.params.courseId);
+            res.redirect(`/courses/${req.params.courseId}`);
+        }else{
+            throw new Error('')
+        }
+
     } catch (error) {
         console.log(error);
         res.render(`/courses/${req.params.courseId}`, { error: error.message });
@@ -60,7 +64,6 @@ courseController.post('/:courseId/edit', isOwner, async (req, res) => {
         isPublic = isPublic === 'on' ? true : false;
         let editedCourse = { title, description, imageUrl, isPublic, owner: req.user._id };
         await courseServices.updateCourse(req.params.courseId, editedCourse);
-        console.log(req.body)
         res.redirect(`/courses/${req.params.courseId}`);
     } catch (error) {
         console.log(error);

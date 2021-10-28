@@ -17,10 +17,10 @@ homeController.get('/profile', authorization, async (req, res) => {
         const user = req.user;
         let myCourses = await courseServices.getCoursesPerUser(req.user._id);
         myCourses = myCourses.courses.map(x => x.title);
-        console.log(myCourses);
         res.render('myProfile', { user, myCourses });
     } catch (error) {
         console.log(error);
+        res.render('myProfile', { error: error.message });
     }
 });
 
