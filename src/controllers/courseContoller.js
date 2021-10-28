@@ -32,19 +32,17 @@ courseController.get('/:courseId', async (req, res) => {
     }
 });
 
-courseController.get('/:courseId/enroll', authorization, async (req, res) => {
+courseController.get('/:courseId/enroll', authorization, isOwner, async (req, res) => {
     try {
-        if (!req.user.isOwner) {
-            await courseServices.addUser(req.params.courseId, req.user._id);
-            await courseServices.addCourse(req.user._id, req.params.courseId);
-            res.redirect(`/courses/${req.params.courseId}`);
-        }else{
-            throw new Error('')
+        if (req.user.isOwner) {
+            throw new Error('The creator of the course can\'t enroll for it');
         }
-
+        await courseServices.addUser(req.params.courseId, req.user._id);
+        await courseServices.addCourse(req.user._id, req.params.courseId);
+        res.redirect(`/courses/${req.params.courseId}`);
     } catch (error) {
         console.log(error);
-        res.render(`/courses/${req.params.courseId}`, { error: error.message });
+        res.redirect('/');
     }
 });
 
