@@ -11,7 +11,7 @@ authController.post('/register', async (req, res) => {
     try {
         let {  username, password, repeatPassword } = req.body;
 
-        if (password !== repeatPassword) {
+        if (password != repeatPassword) {
             throw new Error('Password doesn\'t match, please try again');
         }
         if (username.trim() == '' || password.trim() == '' || repeatPassword.trim() == '') {
